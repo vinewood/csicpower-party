@@ -1,0 +1,140 @@
+version: '3.8'
+
+services:
+  # ============ 主应用 ============
+  app:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    container_name: csic-ai-app
+    ports:
+      - "8000:8000"
+    environment:
+      - DEBUG=False
+      - DATABASE_URL=mysql+pymysql://csic_user:csic_pass@mysql:3306/csic_ai
+      - REDIS_URL=redis://redis:6379
+      - JWT_SECRET_KEY=${JWT_SECRET_KEY}
+      - BAILIAN_API_KEY=${BAILIAN_API_KEY}
+    depends_on:
+      mysql:
+        condition: service_healthy
+      redis:
+        condition: service_started
+    networks:
+      - csic-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # ============ Celery Worker ============
+  celery:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    container_name: csic-ai-celery
+    command: celery -A app.tasks worker -l info
+    environment:
+      - DATABASE_URL=mysql+pymysql://csic_user:csic_pass@mysql:3306/csic_ai
+      - REDIS_URL=redis://redis:6379
+      - BAILIAN_API_KEY=${BAILIAN_API_KEY}
+    depends_on:
+      - redis
+      - mysql
+    networks:
+      - csic-network
+    restart: unless-stopped
+
+  # ============ Celery Beat（定时任务） ============
+  celery-beat:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    container_name: csic-ai-beat
+    command: celery -A app.tasks beat -l info
+    environment:
+      - DATABASE_URL=mysql+pymysql://csic_user:csic_pass@mysql:3306/csic_ai
+      - REDIS_URL=redis://redis:6379
+    depends_on:
+      - redis
+    networks:
+      - csic-network
+    restart: unless-stopped
+
+  # ============ MySQL数据库 ============
+  mysql:
+    image: mysql:8.0
+    container_name: csic-ai-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:-rootpass}
+      MYSQL_DATABASE: csic_ai
+      MYSQL_USER: ${DB_USER:-csic_user}
+      MYSQL_PASSWORD: ${DB_PASSWORD:-csic_pass}
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - csic-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ============ Redis缓存 ============
+  redis:
+    image: redis:7-alpine
+    container_name: csic-ai-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - csic-network
+    restart: unless-stopped
+    command: redis-server --appendonly yes
+
+  # ============ RSSHub（RSS订阅源） ============
+  rsshub:
+    image: diygod/rsshub:latest
+    container_name: csic-ai-rsshub
+    ports:
+      - "1200:1200"
+    environment:
+      - NODE_ENV=production
+      - CACHE_TYPE=memory
+      - CACHE_TTL=300
+    networks:
+      - csic-network
+    restart: unless-stopped
+
+  # ============ Nginx反向代理 ============
+  nginx:
+    image: nginx:alpine
+    container_name: csic-ai-nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./ssl:/etc/nginx/ssl:ro
+    depends_on:
+      - app
+    networks:
+      - csic-network
+    restart: unless-stopped
+
+volumes:
+  mysql_data:
+    driver: local
+  redis_data:
+    driver: local
+
+networks:
+  csic-network:
+    driver: bridge

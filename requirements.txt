@@ -1,0 +1,40 @@
+# Python依赖包列表
+# 安装命令：pip install -r requirements.txt
+
+# ============ 核心框架 ============
+fastapi==0.115.0          # Web框架
+uvicorn[standard]==0.34.0  # ASGI服务器
+jinja2==3.1.5              # 模板引擎
+python-multipart==0.0.20    # 文件上传
+itsdangerous==2.2.0         # 安全签名
+
+# ============ 数据库 ============
+sqlalchemy==2.0.38           # ORM
+alembic==1.14.0             # 数据库迁移
+pymysql==1.2.1              # MySQL驱动
+
+# ============ 认证与安全 ============
+python-jose[cryptography]==3.3.0  # JWT令牌
+passlib[bcrypt]==1.7.4            # 密码哈希
+python-dotenv==1.0.0               # 环境变量加载
+
+# ============ 异步任务 ============
+celery==5.3.6               # 任务队列
+redis==5.2.1                # Redis客户端
+
+# ============ HTTP客户端 ============
+aiohttp==3.11.11            # 异步HTTP客户端
+requests==2.32.3            # 同步HTTP客户端
+
+# ============ 阿里云百炼 ============
+alibabacloud-bailian==1.0.0  # 百炼SDK
+
+# ============ 文件处理 ============
+pypdf2==3.0.1               # PDF处理
+python-docx==1.1.0           # Word文档处理
+pandas==2.2.3                # 数据处理
+
+# ============ 工具库 ============
+pydantic==2.10.3             # 数据校验
+pydantic-settings==2.7.0     # 配置管理
+loguru==0.7.3                # 日志
