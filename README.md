@@ -1,112 +1,312 @@
 # 中船党校AI智能业务系统
 
-> **China State Shipbuilding Corporation (CSSC) Party School AI Intelligent Business Platform**
+<div align="center">
+
+**China State Shipbuilding Corporation (CSSC) Party School AI Intelligent Business Platform**
+
+为零编译、低成本、高可用的智能化业务平台
 
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Python](https://img.shields.io/badge/python-3.12+-blue.svg)](https://www.python.org)
-[![FastAPI](https://img.shields.io/badge/FastAPI-0.115+-green.svg)](https://fastapi.tiangolo.com)
+[![FastAPI](https://img.shields.io/badge/FastAPI-0.115.0-green.svg)](https://fastapi.tiangolo.com)
+[![Docker](https://img.shields.io/badge/docker-supported-blue.svg)](docker/docker-compose.yml)
+[![Docs](https://img.shields.io/badge/docs-latest-orange.svg)](docs/)
+
+</div>
+
+---
+
+## 📋 目录
+
+- [项目简介](#-项目简介)
+- [核心功能](#-核心功能)
+- [技术架构](#-技术架构)
+- [快速开始](#-快速开始)
+- [项目结构](#-项目结构)
+- [部署指南](#-部署指南)
+- [开发指南](#-开发指南)
+- [路线图](#-路线图)
+- [贡献指南](#-贡献指南)
+- [许可证](#-许可证)
+- [致谢](#-致谢)
 
 ---
 
 ## 📋 项目简介
 
-中船党校AI智能业务系统是为中国船舶集团有限公司党校量身打造的智能化业务平台。系统采用**零编译技术栈**，集成AI大模型能力，为党校的教学、科研、信息管理工作提供全方位智能支持。
+中船党校AI智能业务系统是为**中国船舶集团有限公司党校**量身打造的智能化业务平台。
 
 ### 核心定位
 
-- **用户规模**：40人（讲师20人 + 研究员15人 + 领导5人）
-- **核心目标**：提升教学科研效率，实现AI能力深度业务化
-- **技术策略**：零编译、快速迭代、低成本维护
+| 项目 | 说明 |
+|------|------|
+| **用户规模** | 40人（讲师20人 + 研究员15人 + 领导5人） |
+| **核心目标** | 提升教学科研效率，实现AI能力深度业务化 |
+| **技术策略** | 零编译、快速迭代、低成本维护 |
+| **部署方式** | Docker容器化 + 阿里云ECS |
+
+### 为什么选择我们？
+
+✅ **零编译技术栈** - 修改代码立即生效，无需等待编译  
+✅ **低成本运营** - 首年人均成本仅¥413  
+✅ **快速交付** - 3个月完成全功能交付  
+✅ **开源透明** - MIT许可证，代码完全开放  
 
 ---
 
-## 🎯 核心功能模块
+## 🎯 核心功能
 
-系统包含六大功能模块，覆盖党校核心业务场景：
+系统包含**六大功能模块**，覆盖党校核心业务场景：
 
 ### 1️⃣ 教学工作台
-对标 aizke 搜索界面设计
-- 📝 课程设计与管理系统
-- 🎯 课件智能生成（AI辅助）
-- 🎥 音视频分析工具（转录+摘要+思维导图）
-- 📊 教学经验萃取
-- 🎓 AI互动课堂
+
+> 对标 aizke 搜索界面设计
+
+- 📝 **课程设计与管理系统**
+- 🎯 **课件智能生成**（AI辅助）
+- 🎥 **音视频分析工具**（转录+摘要+思维导图）
+- 📚 **教学经验萃取**
+- 🎓 **AI互动课堂**
 
 ### 2️⃣ 科研工作台
-对标 AMiner + 维普学术平台
-- 📊 课题选题助手（AI推荐研究方向）
-- 📚 文献检索与管理（集成AMiner API）
-- 📝 论文润色/翻译/校对（集成gpt_academic引擎）
-- 📈 研究动态追踪
-- 🗂️ 科研项目空间
+
+> 对标 AMiner + 维普学术平台
+
+- 📊 **课题选题助手**（AI推荐研究方向）
+- 📚 **文献检索与管理**（集成AMiner API）
+- 📝 **论文润色/翻译/校对**（集成gpt_academic引擎）
+- 📈 **研究动态追踪**
+- 🗂️ **科研项目空间**
 
 ### 3️⃣ 信息导航台
-RSS新闻聚合 + AI摘要
-- 📰 多源新闻订阅（新华网、人民网、国资委等）
-- 🤖 AI自动摘要每条新闻
-- 📅 每日要点简报生成
-- 📤 支持导出PDF和分享
+
+> RSS新闻聚合 + AI摘要
+
+- 📰 **多源新闻订阅**（新华网、人民网、国资委等）
+- 🤖 **AI自动摘要**每条新闻
+- 📅 **每日要点简报生成**
+- 📤 **支持导出PDF和分享**
 
 ### 4️⃣ 技能中心
-对标青泥AI技能广场
-- 🧩 预置20+科研/教学/通用技能
-- 🔧 自定义技能创建
-- ⭐ 技能评分与使用统计
-- 📌 个人技能空间管理
+
+> 对标青泥AI技能广场
+
+- 🧩 **预置20+科研/教学/通用技能**
+- 🔧 **自定义技能创建**
+- ⭐ **技能评分与使用统计**
+- 📌 **个人技能空间管理**
 
 ### 5️⃣ 视频分析工具
-对标dwsh.cn用户体验
-- 📁 拖拽上传视频文件
-- 🎤 自动转录（语音→文本）
-- 🧠 自动生成思维导图
-- 📝 结构化笔记提取
-- 📄 支持导出多种格式
+
+> 对标dwsh.cn用户体验
+
+- 📁 **拖拽上传视频文件**
+- 🎤 **自动转录**（语音→文本）
+- 🧠 **自动生成思维导图**
+- 📝 **结构化笔记提取**
+- 📄 **支持导出多种格式**
 
 ### 6️⃣ 系统管理后台
-- 👥 用户与角色管理
-- 🤖 AI模型配置（单模/多模对比）
-- 📊 用量统计与Token消耗监控
-- 📢 系统公告管理
-- 🔧 RSS订阅源管理
+
+- 👥 **用户与角色管理**
+- 🤖 **AI模型配置**（单模/多模对比）
+- 📊 **用量统计与Token消耗监控**
+- 📢 **系统公告管理**
+- 🔧 **RSS订阅源管理**
 
 ---
 
-## 🛠️ 技术栈
+## 🏗️ 技术架构
 
 ### 核心设计理念：**零编译、快速迭代**
 
+传统路线与推荐路线对比：
+
 ```
-传统路线（❌）                    推荐路线（✅）
-━━━━━━━━━━━━━━━━━━━━━━━    ━━━━━━━━━━━━━━━━━━━━━━━━━━
-React/Vue + Webpack/Vite    Jinja2模板 + Alpine.js + CDN
-npm install (500MB+)        零依赖安装
-修改代码 → 编译 → 刷新       修改代码 → 直接刷新
-TypeScript 编译              纯JavaScript（无编译）
-CSS Module/PostCSS          Tailwind CSS CDN（即时生效）
+❌ 传统路线                          ✅ 推荐路线
+━━━━━━━━━━━━━━━━━━━━━━━━━    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+React/Vue + Webpack/Vite       Jinja2模板 + Alpine.js + CDN
+npm install (500MB+)             零依赖安装
+修改代码 → 编译 → 刷新           修改代码 → 直接刷新
+TypeScript 编译                   纯JavaScript（无编译）
+CSS Module/PostCSS              Tailwind CSS CDN（即时生效）
 ```
 
 ### 技术选型
 
-| 层级 | 技术 | 引入方式 | 说明 |
-|------|------|---------|------|
-| **后端框架** | Python 3.12 + FastAPI | pip install | AI生态母语，异步SSE支持 |
-| **模板引擎** | Jinja2 | FastAPI内置 | 服务端渲染，无需前端编译 |
-| **前端交互** | Alpine.js 3.x | CDN | Vue风格语法，零编译 |
-| **CSS框架** | Tailwind CSS | CDN | 实用优先，即时生效 |
-| **组件库** | Flowbite | CDN | 基于Tailwind的组件库 |
-| **图表** | ECharts | CDN | 数据可视化 |
-| **思维导图** | simple-mind-map | CDN | 音视频分析结果展示 |
-| **Markdown** | marked.js | CDN | AI输出渲染 |
-| **数据库** | MySQL 8.0 | SQLAlchemy | ORM + 迁移 |
-| **任务队列** | Celery + Redis | pip install | 异步任务处理 |
-| **AI网关** | 阿里云百炼 | SDK | Qwen全系 + RAG知识库 |
+| 层级 | 技术 | 版本 | 说明 |
+|------|------|------|------|
+| **后端框架** | Python + FastAPI | 3.12+ / 0.115+ | AI生态母语，异步SSE支持 |
+| **模板引擎** | Jinja2 | 3.1+ | 服务端渲染，无需前端编译 |
+| **前端交互** | Alpine.js | 3.x | Vue风格语法，零编译 |
+| **CSS框架** | Tailwind CSS | 3.x | 实用优先，CDN即时生效 |
+| **组件库** | Flowbite | 2.x | 基于Tailwind的组件库 |
+| **数据库** | MySQL | 8.0+ | 成熟稳定，兼容性好 |
+| **缓存/队列** | Redis + Celery | 7.0+ / 5.3+ | 异步任务处理 |
+| **AI网关** | 阿里云百炼 | - | Qwen全系 + RAG知识库 |
 
-### 为什么选择"零编译"路线？
+### 架构图
 
-✅ **开发效率高**：修改模板→刷新浏览器，无需等待编译  
-✅ **学习成本低**：只需懂Python + HTML，无需学习React/Vue  
-✅ **维护成本低**：不依赖Node.js生态，避免依赖地狱  
-✅ **部署简单**：无需构建步骤，直接部署Python应用  
+```
+┌─────────────────────────────────────────┐
+│        统一前端（Jinja2 + Alpine.js）   │
+├─────────────────────────────────────────┤
+│        统一API网关（FastAPI）            │
+│  ├─ 认证中间件（JWT Token）           │
+│  ├─ 路由分发                         │
+│  └─ 响应格式化                       │
+├─────────────────────────────────────────┤
+│        外部服务层（独立部署）            │
+│  ├─ 阿里云百炼 API                  │
+│  ├─ DeepSeek API                    │
+│  ├─ RSSHub (Docker)                │
+│  ├─ Miniflux (Docker)               │
+│  └─ gpt_academic (Python模块)        │
+└─────────────────────────────────────────┘
+```
+
+---
+
+## 🚀 快速开始
+
+### 环境要求
+
+- Python 3.12+
+- MySQL 8.0+
+- Redis 7.0+
+- Docker (可选，用于生产部署)
+
+### 一键启动（推荐）
+
+```bash
+# 克隆项目
+git clone https://github.com/vinewood/csicpower-party.git
+cd csicpower-party
+
+# 启动开发环境（自动安装依赖）
+./scripts/dev_setup.sh
+```
+
+### 手动安装
+
+#### 1. 克隆项目
+
+```bash
+git clone https://github.com/vinewood/csicpower-party.git
+cd csicpower-party
+```
+
+#### 2. 创建虚拟环境
+
+```bash
+python -m venv venv
+source venv/bin/activate  # Linux/Mac
+# 或
+venv\Scripts\activate     # Windows
+```
+
+#### 3. 安装依赖
+
+```bash
+pip install -r requirements.txt
+```
+
+**核心依赖（仅15个包）**：
+
+```
+fastapi==0.115.0        # Web框架
+uvicorn[standard]==0.34.0 # ASGI服务器
+jinja2==3.1.5           # 模板引擎
+sqlalchemy==2.0.38        # ORM
+alembic==1.14.0          # 数据库迁移
+celery==5.3.6            # 任务队列
+redis==5.2.1             # Redis客户端
+python-jose==3.3.0       # JWT令牌
+passlib==1.7.4            # 密码哈希
+aiohttp==3.11.11         # 异步HTTP客户端
+alibabacloud-bailian==1.0.0  # 百炼SDK
+pymysql==1.2.1           # MySQL驱动
+python-dotenv==1.0.0     # 环境变量加载
+pydantic==2.10.3         # 数据校验
+loguru==0.7.3             # 日志
+```
+
+#### 4. 配置环境变量
+
+```bash
+cp .env.example .env
+```
+
+编辑 `.env` 文件，配置以下变量：
+
+```env
+# 数据库配置
+DATABASE_URL=mysql+pymysql://user:password@localhost:3306/csic_ai
+
+# Redis配置
+REDIS_URL=redis://localhost:6379
+
+# 阿里云百炼API
+BAILIAN_API_KEY=your_api_key_here
+BAILIAN_WORKSPACE_ID=your_workspace_id
+
+# DeepSeek API（备用）
+DEEPSEEK_API_KEY=your_api_key_here
+
+# JWT配置
+JWT_SECRET_KEY=your_secret_key_here
+JWT_ALGORITHM=HS256
+ACCESS_TOKEN_EXPIRE_MINUTES=1440
+
+# 应用配置
+DEBUG=True
+HOST=0.0.0.0
+PORT=8000
+```
+
+#### 5. 初始化数据库
+
+```bash
+# 创建数据库
+mysql -u root -p -e "CREATE DATABASE csic_ai CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;"
+
+# 运行迁移
+alembic upgrade head
+
+# 初始化基础数据（可选）
+python scripts/init_db.py
+```
+
+#### 6. 启动应用
+
+**开发模式**：
+
+```bash
+# 终端1：启动FastAPI应用（自动重载）
+uvicorn main:app --reload --host 0.0.0.0 --port 8000
+
+# 终端2：启动Celery worker
+celery -A app.tasks worker -l info
+
+# 终端3：启动Celery beat（可选）
+celery -A app.tasks beat -l info
+```
+
+访问 `http://localhost:8000` 查看应用。  
+访问 `http://localhost:8000/docs` 查看API文档。
+
+**生产模式（Docker）**：
+
+```bash
+# 构建并启动所有服务
+docker compose -f docker/docker-compose.yml up -d
+
+# 查看日志
+docker compose -f docker/docker-compose.yml logs -f
+
+# 停止服务
+docker compose -f docker/docker-compose.yml down
+```
 
 ---
 
@@ -209,200 +409,6 @@ csicpower-party/
 
 ---
 
-## 🚀 快速开始
-
-### 环境要求
-
-- Python 3.12+
-- MySQL 8.0+
-- Redis 7.0+
-- Git
-
-### 1. 克隆项目
-
-```bash
-git clone https://github.com/vinewood/csicpower-party.git
-cd csicpower-party
-```
-
-### 2. 创建虚拟环境
-
-```bash
-python -m venv venv
-source venv/bin/activate  # Linux/Mac
-# 或
-venv\Scripts\activate     # Windows
-```
-
-### 3. 安装依赖
-
-```bash
-pip install -r requirements.txt
-```
-
-**核心依赖（仅15个包）**：
-
-```txt
-fastapi==0.115.0
-uvicorn[standard]==0.34.0
-jinja2==3.1.5
-sqlalchemy==2.0.38
-alembic==1.14.0
-celery==5.3.6
-redis==5.2.1
-python-jose[cryptography]==3.3.0
-passlib[bcrypt]==1.7.4
-aiohttp==3.11.11
-alibabacloud-bailian==1.0.0
-pymysql==1.2.1
-python-multipart==0.0.20
-itsdangerous==2.2.0
-python-dotenv==1.0.0
-```
-
-### 4. 配置环境变量
-
-```bash
-cp .env.example .env
-```
-
-编辑 `.env` 文件，配置以下变量：
-
-```env
-# 数据库配置
-DATABASE_URL=mysql+pymysql://user:password@localhost:3306/csic_ai
-
-# Redis配置
-REDIS_URL=redis://localhost:6379
-
-# 阿里云百炼API
-BAILIAN_API_KEY=your_api_key_here
-BAILIAN_WORKSPACE_ID=your_workspace_id
-
-# DeepSeek API（备用）
-DEEPSEEK_API_KEY=your_api_key_here
-
-# JWT配置
-JWT_SECRET_KEY=your_secret_key_here
-JWT_ALGORITHM=HS256
-ACCESS_TOKEN_EXPIRE_MINUTES=1440
-
-# 应用配置
-DEBUG=True
-HOST=0.0.0.0
-PORT=8000
-```
-
-### 5. 初始化数据库
-
-```bash
-# 创建数据库
-mysql -u root -p -e "CREATE DATABASE csic_ai CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;"
-
-# 运行迁移
-alembic upgrade head
-
-# 初始化基础数据（可选）
-python scripts/init_db.py
-```
-
-### 6. 启动应用
-
-#### 开发模式
-
-```bash
-# 启动FastAPI应用（自动重载）
-uvicorn main:app --reload --host 0.0.0.0 --port 8000
-
-# 启动Celery_worker（新终端）
-celery -A app.tasks worker -l info
-
-# 启动Celery_beat（新终端，可选）
-celery -A app.tasks beat -l info
-```
-
-访问 `http://localhost:8000` 查看应用。
-
-#### 生产模式（Docker）
-
-```bash
-# 构建并启动所有服务
-docker-compose -f docker/docker-compose.yml up -d
-
-# 查看日志
-docker-compose -f docker/docker-compose.yml logs -f
-
-# 停止服务
-docker-compose -f docker/docker-compose.yml down
-```
-
----
-
-## 📊 核心功能详解
-
-### AI模型切换器（全局组件）
-
-系统支持**单模型模式**和**多模型对比模式**：
-
-- **单模型模式**：选择单个AI模型进行对话（Qwen-Max/DeepSeek等）
-- **多模型对比模式**：同时调用2-4个模型，并排显示回答，方便对比选择
-
-模型切换器在所有页面可见，用户可随时切换。
-
-### 多租户数据隔离
-
-系统采用 `user_id` 隔离策略：
-
-- 每个用户只能看到自己的对话、项目、技能
-- 数据库层面通过 `user_id` 外键实现隔离
-- 支持角色权限控制（讲师/研究员/领导/管理员）
-
-### 个性化工作空间
-
-每个用户可以：
-
-- **设置默认工作台**：登录后自动跳转到指定模块
-- **调整功能卡片**：拖拽排序，显示/隐藏特定功能
-- **固定快捷入口**：将常用项目/技能固定在顶栏
-
----
-
-## 🌐 外部服务集成
-
-系统集成了多个开源工具和商业API，通过**API桥接**方式实现，不改造第三方代码：
-
-| 服务 | 类型 | 用途 |
-|------|------|------|
-| **阿里云百炼** | 商业API | 模型服务 + RAG知识库 + Agent平台 |
-| **DeepSeek** | 商业API | 备用模型源 |
-| **AMiner** | 商业API | 学术文献检索 |
-| **RSSHub** | 开源 | RSS订阅源生成 |
-| **Miniflux** | 开源 | RSS阅读器 |
-| **gpt_academic** | 开源 | 论文解析/润色/翻译引擎 |
-| **simple-mind-map** | 开源 | 思维导图渲染库 |
-
-### 集成策略
-
-```
-┌─────────────────────────────────────────┐
-│        统一前端（Jinja2 + Alpine.js）    │
-├─────────────────────────────────────────┤
-│        统一API网关（FastAPI）            │
-│  ├─ 认证中间件（JWT Token）            │
-│  ├─ 路由分发                          │
-│  └─ 响应格式化                        │
-├─────────────────────────────────────────┤
-│        外部服务层（独立部署）            │
-│  ├─ 阿里云百炼 API                   │
-│  ├─ DeepSeek API                     │
-│  ├─ RSSHub (Docker)                  │
-│  ├─ Miniflux (Docker)                │
-│  └─ gpt_academic (Python模块)         │
-└─────────────────────────────────────────┘
-```
-
----
-
 ## 📦 部署指南
 
 ### 方案A：单机Docker部署（推荐）
@@ -411,10 +417,12 @@ docker-compose -f docker/docker-compose.yml down
 
 #### 服务器配置
 
-- **云服务商**：阿里云ECS
-- **实例规格**：8C16G
-- **操作系统**：Ubuntu 22.04 LTS
-- **存储**：100GB SSD云盘
+| 项目 | 配置 |
+|------|------|
+| **云服务商** | 阿里云ECS |
+| **实例规格** | 8C16G |
+| **操作系统** | Ubuntu 22.04 LTS |
+| **存储** | 100GB SSD云盘 |
 
 #### 部署步骤
 
@@ -477,23 +485,6 @@ apt-get install -y mysql-server redis-server
 
 ---
 
-## 👥 用户角色与权限
-
-| 角色 | 人数 | 默认工作台 | 可访问模块 |
-|------|------|-----------|-----------|
-| **讲师** | ~20 | 教学工作台 | 教学+技能+视频+新闻 |
-| **研究员** | ~15 | 科研工作台 | 科研+技能+视频+新闻 |
-| **领导** | ~5 | 信息导航台 | 新闻+技能 |
-| **管理员** | ~2 | 系统管理 | 全部模块 |
-
-### 权限控制
-
-- **数据隔离**：用户只能访问自己的数据
-- **功能授权**：不同角色看到不同的功能模块
-- **操作审计**：关键操作记录日志
-
----
-
 ## 🧪 开发指南
 
 ### 代码规范
@@ -501,7 +492,7 @@ apt-get install -y mysql-server redis-server
 - **Python**：遵循PEP 8规范，使用Black格式化
 - **HTML/Jinja2**：缩进2空格，语义化标签
 - **JavaScript**：ES6+语法，Alpine.js组件化
-- **Git提交**：遵循Conventional Commits规范
+- **Git提交**：遵循[Conventional Commits](https://www.conventionalcommits.org/)规范
 
 ### 开发流程
 
@@ -541,7 +532,7 @@ git push origin feature/功能名称
 
 ---
 
-## 📈 开发路线图
+## 📈 路线图
 
 ### Phase 1：MVP核心功能（第1-4周）
 
@@ -596,6 +587,13 @@ git push origin feature/功能名称
 - ⚡ **性能优化**
 - 🔒 **安全加固**
 
+### 代码审查
+
+所有PR都需要经过代码审查。请确保：
+- 代码符合项目规范
+- 添加了必要的测试
+- 更新了相关文档
+
 ---
 
 ## 📄 许可证
@@ -643,5 +641,7 @@ git push origin feature/功能名称
 **⚓ 为中船党校赋能，让AI助力教学科研！**
 
 Made with ❤️ by [Your Team]
+
+[⬆️ 回到顶部](#中船党校ai智能业务系统)
 
 </div>
